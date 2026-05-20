@@ -476,6 +476,16 @@ curl -s -X GET 'https://www.servercontrolpanel.de/scp-core/api/v1/openapi' -H 'a
 
 You can refresh it to align with the latest API. The CLI does not read this file at runtime; it is for reference and code generation.
 
+### SCP OpenAPI MCP endpoint (Miscellaneous)
+
+The bundled spec documents **`POST /v1/openapi/mcp`** (tag **Miscellaneous**; some explorers label it like `#/Miscellaneous/post_api_v1_openapi_mcp`). Summary: **SCP OpenAPI Spec MCP Server**.
+
+**Purpose (from the spec):** SCP (Server Control Panel) API Explorer — OpenAPI specification explorer for the netcup SCP REST API. It provides documentation, schema definitions, and guidance for building SCP API clients and scripts. **It does not execute SCP API calls directly.**
+
+**Full URL:** `https://www.servercontrolpanel.de/scp-core/api/v1/openapi/mcp`
+
+Use this with an MCP-capable client if you want explore-only access to the API surface. It uses the same **`https://www.servercontrolpanel.de/scp-core/api/v1`** base as other authenticated routes; this CLI does not ship a wrapper for the MCP protocol (JSON-RPC message exchange over HTTP).
+
 ---
 
 ## Project structure
@@ -507,6 +517,7 @@ netcup-cli/
     │   ├── servers_logs.py
     │   ├── servers_image.py
     │   ├── servers_guest.py
+    │   ├── servers_gpu.py
     │   ├── servers_storage.py
     │   ├── tasks.py
     │   ├── users.py
