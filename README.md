@@ -8,7 +8,7 @@ Manage servers, rDNS, snapshots, rescue systems, firewall policies, SSH keys, VL
 | --- | --- |
 | **Python** | 3.9+ |
 | **License** | MIT |
-| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0218.151350 |
+| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0519.150426 |
 
 > **Why `netcup` and not `scp`?** The command is named `netcup` to avoid clashing with the standard Unix **scp** (secure copy) command.
 
