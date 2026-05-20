@@ -9,6 +9,7 @@ def server_list(
     *,
     limit: int | None = None,
     offset: int | None = None,
+    firewall_policy_id: int | None = None,
     ip: str | None = None,
     name: str | None = None,
     q: str | None = None,
@@ -20,6 +21,8 @@ def server_list(
         params["limit"] = limit
     if offset is not None:
         params["offset"] = offset
+    if firewall_policy_id is not None:
+        params["firewallPolicyId"] = firewall_policy_id
     if ip:
         params["ip"] = ip
     if name:

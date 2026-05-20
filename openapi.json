@@ -3,7 +3,7 @@
   "info": {
     "title": "SCP (Server Control Panel) REST API",
     "description": "The version number is updated with each SCP release, regardless of whether the API has changed. Breaking changes are handled by versioning individual endpoints in the request path.",
-    "version": "2026.0218.151350"
+    "version": "2026.0519.150426"
   },
   "externalDocs": {
     "description": "netcup Forum",
@@ -14,9 +14,57 @@
       "url": "/scp-core"
     }
   ],
+  "tags": [
+    {
+      "name": "Miscellaneous"
+    },
+    {
+      "name": "Server Disks",
+      "description": "Operations related to disks, drivers, formatting, cloud-init"
+    },
+    {
+      "name": "Server Firewalls",
+      "description": "Operations for configuring Firewalls and managing Firewall Policies"
+    },
+    {
+      "name": "Server ISO",
+      "description": "Operations for managing ISO Images"
+    },
+    {
+      "name": "Server Images",
+      "description": "Operations related to Images and Flavours"
+    },
+    {
+      "name": "Server Metrics",
+      "description": "Operations to load the Metrics of a Server"
+    },
+    {
+      "name": "Server Networking",
+      "description": "Operations related to Networking"
+    },
+    {
+      "name": "Server Snapshots",
+      "description": "Operations for server snapshots"
+    },
+    {
+      "name": "Servers",
+      "description": "Operations for managing Servers"
+    },
+    {
+      "name": "Tasks",
+      "description": "Operations related to Tasks"
+    },
+    {
+      "name": "Users",
+      "description": "Operations related to Users"
+    }
+  ],
   "paths": {
     "/api/ping": {
       "get": {
+        "tags": [
+          "Miscellaneous"
+        ],
         "summary": "Check if application is available",
         "responses": {
           "200": {
@@ -32,6 +80,9 @@
     },
     "/api/v1/maintenance": {
       "get": {
+        "tags": [
+          "Miscellaneous"
+        ],
         "summary": "Get maintenance information for system",
         "responses": {
           "200": {
@@ -55,6 +106,9 @@
     },
     "/api/v1/openapi": {
       "get": {
+        "tags": [
+          "Miscellaneous"
+        ],
         "summary": "Get openapi spec",
         "responses": {
           "200": {
@@ -78,6 +132,9 @@
     },
     "/api/v1/openapi/mcp": {
       "post": {
+        "tags": [
+          "Miscellaneous"
+        ],
         "summary": "SCP OpenAPI Spec MCP Server",
         "responses": {
           "200": {
@@ -101,6 +158,9 @@
     },
     "/api/v1/rdns/ipv4": {
       "post": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Set an rDNS entry for an IPv4.",
         "responses": {
           "200": {
@@ -136,6 +196,9 @@
     },
     "/api/v1/rdns/ipv4/{ip}": {
       "delete": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Delete an rDNS entry of an IPv4.",
         "responses": {
           "204": {
@@ -171,6 +234,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get rDNS for an IPv4.",
         "responses": {
           "200": {
@@ -220,6 +286,9 @@
     },
     "/api/v1/rdns/ipv6": {
       "post": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Set an rDNS entry for an IPv6.",
         "responses": {
           "200": {
@@ -255,6 +324,9 @@
     },
     "/api/v1/rdns/ipv6/{ip}": {
       "delete": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Delete an rDNS entry of an IPv6.",
         "responses": {
           "204": {
@@ -290,6 +362,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get rDNS for an IPv6.",
         "responses": {
           "200": {
@@ -339,6 +414,9 @@
     },
     "/api/v1/servers": {
       "get": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Get servers",
         "responses": {
           "200": {
@@ -364,6 +442,15 @@
           }
         },
         "parameters": [
+          {
+            "name": "firewallPolicyId",
+            "in": "query",
+            "description": "Filter by assigned firewall policy",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
           {
             "name": "ip",
             "in": "query",
@@ -414,6 +501,9 @@
     },
     "/api/v1/servers/{serverId}": {
       "patch": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Start - stop server or update attributes like hostname, nickname, uefi, bootorder, ...",
         "responses": {
           "200": {
@@ -513,6 +603,9 @@
         "description": "Only one attribute at a time."
       },
       "get": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Get one server",
         "responses": {
           "200": {
@@ -570,6 +663,9 @@
     },
     "/api/v1/servers/{serverId}/disks": {
       "patch": {
+        "tags": [
+          "Server Disks"
+        ],
         "summary": "Patch disk driver of a server.",
         "responses": {
           "202": {
@@ -612,6 +708,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Disks"
+        ],
         "summary": "Get disks of a server",
         "responses": {
           "200": {
@@ -652,6 +751,9 @@
     },
     "/api/v1/servers/{serverId}/disks/supported-drivers": {
       "get": {
+        "tags": [
+          "Server Disks"
+        ],
         "summary": "Get a list of supported storage drivers for this server",
         "responses": {
           "200": {
@@ -707,6 +809,9 @@
     },
     "/api/v1/servers/{serverId}/disks/{diskName}": {
       "get": {
+        "tags": [
+          "Server Disks"
+        ],
         "summary": "Get a disk of a server",
         "responses": {
           "200": {
@@ -749,6 +854,9 @@
     },
     "/api/v1/servers/{serverId}/disks/{diskName}:format": {
       "post": {
+        "tags": [
+          "Server Disks"
+        ],
         "summary": "Format disk of a server. Attention: All data will be lost during formatting!",
         "responses": {
           "202": {
@@ -819,8 +927,64 @@
         "description": ""
       }
     },
+    "/api/v1/servers/{serverId}/gpu-driver": {
+      "get": {
+        "tags": [
+          "Servers"
+        ],
+        "summary": "Generate presigned download URL for GPU driver if available",
+        "responses": {
+          "200": {
+            "description": "Presigned download URL for GPU driver successfully generated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/S3DownloadInfos"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/S3DownloadInfos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "GPU driver or vGPU not available.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Server id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "description": ""
+      }
+    },
     "/api/v1/servers/{serverId}/guest-agent": {
       "get": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Get guest agent data for server",
         "responses": {
           "200": {
@@ -869,8 +1033,64 @@
         "description": ""
       }
     },
+    "/api/v1/servers/{serverId}/guest-agent/status": {
+      "get": {
+        "tags": [
+          "Servers"
+        ],
+        "summary": "Get guest agent status for server",
+        "responses": {
+          "200": {
+            "description": "Guest agent status for server successfully loaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuestAgentStatus"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuestAgentStatus"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Server not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "description": "Server id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "description": ""
+      }
+    },
     "/api/v1/servers/{serverId}/image": {
       "post": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Setup image for a server. Attention: All data will be lost during formatting on selected disk!",
         "responses": {
           "202": {
@@ -929,6 +1149,9 @@
     },
     "/api/v1/servers/{serverId}/imageflavours": {
       "get": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Get available image flavours for server image setup. Images whose storage driver is not supported by the server's machine type are not shown.",
         "responses": {
           "200": {
@@ -984,6 +1207,9 @@
     },
     "/api/v1/servers/{serverId}/interfaces": {
       "post": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Create an interface in a server.",
         "responses": {
           "202": {
@@ -1035,7 +1261,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/merge-patch+json": {
+            "application/json": {
               "schema": {
                 "oneOf": [
                   {
@@ -1060,6 +1286,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get all interfaces and IPs of a server including routed IPs and rDNS entries.",
         "responses": {
           "200": {
@@ -1123,6 +1352,9 @@
     },
     "/api/v1/servers/{serverId}/interfaces/{mac}": {
       "put": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Update interface attributes.",
         "responses": {
           "202": {
@@ -1191,7 +1423,9 @@
         "description": ""
       },
       "delete": {
-        "summary": "Delete an interface of a server.",
+        "tags": [
+          "Server Networking"
+        ],
         "responses": {
           "202": {
             "description": "Interface deletion successfully started.",
@@ -1246,6 +1480,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get an interface and IPs of a server including routed IPs and rDNS entries.",
         "responses": {
           "200": {
@@ -1312,6 +1549,9 @@
     },
     "/api/v1/servers/{serverId}/interfaces/{mac}/firewall": {
       "put": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Configure firewall",
         "responses": {
           "202": {
@@ -1392,6 +1632,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Get firewall",
         "responses": {
           "200": {
@@ -1459,6 +1702,9 @@
     },
     "/api/v1/servers/{serverId}/interfaces/{mac}/firewall:reapply": {
       "post": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Reapply firewall. Necessary if policy update timed out due to long running write operation on server (f.e. storage optimization)",
         "responses": {
           "202": {
@@ -1502,6 +1748,9 @@
     },
     "/api/v1/servers/{serverId}/interfaces/{mac}/firewall:restore-copied-policies": {
       "post": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Restore copied firewall policies.",
         "responses": {
           "202": {
@@ -1560,6 +1809,9 @@
     },
     "/api/v1/servers/{serverId}/iso": {
       "post": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Attach an ISO to a server.",
         "responses": {
           "202": {
@@ -1616,6 +1868,9 @@
         "description": ""
       },
       "delete": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Detach an ISO from a server.",
         "responses": {
           "204": {
@@ -1636,6 +1891,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Get attached ISO of a server.",
         "responses": {
           "200": {
@@ -1670,6 +1928,9 @@
     },
     "/api/v1/servers/{serverId}/isoimages": {
       "get": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Get available ISO images for server",
         "responses": {
           "200": {
@@ -1710,6 +1971,9 @@
     },
     "/api/v1/servers/{serverId}/logs": {
       "get": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Get server logs ",
         "responses": {
           "200": {
@@ -1771,6 +2035,9 @@
     },
     "/api/v1/servers/{serverId}/metrics/cpu": {
       "get": {
+        "tags": [
+          "Server Metrics"
+        ],
         "summary": "Get CPU metrics of a server.",
         "responses": {
           "200": {
@@ -1816,6 +2083,9 @@
     },
     "/api/v1/servers/{serverId}/metrics/disk": {
       "get": {
+        "tags": [
+          "Server Metrics"
+        ],
         "summary": "Get disk metrics of a server.",
         "responses": {
           "200": {
@@ -1861,6 +2131,9 @@
     },
     "/api/v1/servers/{serverId}/metrics/network": {
       "get": {
+        "tags": [
+          "Server Metrics"
+        ],
         "summary": "Get network metrics of a server.",
         "responses": {
           "200": {
@@ -1906,6 +2179,9 @@
     },
     "/api/v1/servers/{serverId}/metrics/network/packet": {
       "get": {
+        "tags": [
+          "Server Metrics"
+        ],
         "summary": "Get network packet metrics of a server.",
         "responses": {
           "200": {
@@ -1951,6 +2227,9 @@
     },
     "/api/v1/servers/{serverId}/rescuesystem": {
       "post": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Activate rescue system for a server.",
         "responses": {
           "202": {
@@ -2013,6 +2292,9 @@
         "description": ""
       },
       "delete": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Deactivate rescue system for a server.",
         "responses": {
           "202": {
@@ -2075,6 +2357,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Get rescue system status for a server.",
         "responses": {
           "200": {
@@ -2124,6 +2409,9 @@
     },
     "/api/v1/servers/{serverId}/snapshots": {
       "post": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Create a snapshot",
         "responses": {
           "202": {
@@ -2210,6 +2498,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Get all snapshots of a server.",
         "responses": {
           "200": {
@@ -2280,6 +2571,9 @@
     },
     "/api/v1/servers/{serverId}/snapshots/{name}": {
       "delete": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Delete a snapshot of a server",
         "responses": {
           "202": {
@@ -2350,6 +2644,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Get a snapshot of a server.",
         "responses": {
           "200": {
@@ -2422,6 +2719,9 @@
     },
     "/api/v1/servers/{serverId}/snapshots/{name}/export": {
       "post": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Export a snapshot of a server",
         "responses": {
           "202": {
@@ -2509,6 +2809,9 @@
     },
     "/api/v1/servers/{serverId}/snapshots/{name}/revert": {
       "post": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Revert a snapshot of a server",
         "responses": {
           "202": {
@@ -2581,6 +2884,9 @@
     },
     "/api/v1/servers/{serverId}/snapshots:dryrun": {
       "post": {
+        "tags": [
+          "Server Snapshots"
+        ],
         "summary": "Check if creating a snapshot is possible.",
         "responses": {
           "200": {
@@ -2666,6 +2972,9 @@
     },
     "/api/v1/servers/{serverId}/storageoptimization": {
       "post": {
+        "tags": [
+          "Servers"
+        ],
         "summary": "Optimize storage of a server.",
         "responses": {
           "202": {
@@ -2733,6 +3042,9 @@
     },
     "/api/v1/servers/{serverId}/user-image": {
       "post": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Setup user image for a server.",
         "responses": {
           "202": {
@@ -2791,6 +3103,9 @@
     },
     "/api/v1/tasks": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "summary": "Get all tasks",
         "responses": {
           "200": {
@@ -2866,6 +3181,9 @@
     },
     "/api/v1/tasks/{uuid}": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "summary": "Get one task",
         "responses": {
           "200": {
@@ -2914,6 +3232,9 @@
     },
     "/api/v1/tasks/{uuid}:cancel": {
       "put": {
+        "tags": [
+          "Tasks"
+        ],
         "summary": "Cancel a running task",
         "responses": {
           "202": {
@@ -2962,6 +3283,9 @@
     },
     "/api/v1/users/{userId}": {
       "put": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Update a user",
         "responses": {
           "200": {
@@ -3033,6 +3357,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Get one user",
         "responses": {
           "200": {
@@ -3082,6 +3409,9 @@
     },
     "/api/v1/users/{userId}/failoverips/v4": {
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get all failover IPv4s of this user.",
         "responses": {
           "200": {
@@ -3140,6 +3470,9 @@
     },
     "/api/v1/users/{userId}/failoverips/v4/{id}": {
       "patch": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Route a failover IPv4.",
         "responses": {
           "202": {
@@ -3194,6 +3527,11 @@
               "schema": {
                 "$ref": "#/components/schemas/RouteFailoverIp"
               }
+            },
+            "application/merge-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFailoverIp"
+              }
             }
           }
         },
@@ -3224,6 +3562,9 @@
     },
     "/api/v1/users/{userId}/failoverips/v6": {
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get all failover IPv6s of this user.",
         "responses": {
           "200": {
@@ -3282,6 +3623,9 @@
     },
     "/api/v1/users/{userId}/failoverips/v6/{id}": {
       "patch": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Route a failover IPv6.",
         "responses": {
           "202": {
@@ -3336,6 +3680,11 @@
               "schema": {
                 "$ref": "#/components/schemas/RouteFailoverIp"
               }
+            },
+            "application/merge-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFailoverIp"
+              }
             }
           }
         },
@@ -3366,6 +3715,9 @@
     },
     "/api/v1/users/{userId}/firewall-policies": {
       "post": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Create firewall policy",
         "responses": {
           "201": {
@@ -3434,6 +3786,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Get firewall policies",
         "responses": {
           "200": {
@@ -3504,6 +3859,9 @@
     },
     "/api/v1/users/{userId}/firewall-policies/{id}": {
       "put": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Update firewall policy",
         "responses": {
           "202": {
@@ -3575,6 +3933,9 @@
         "description": ""
       },
       "delete": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Delete firewall policy",
         "responses": {
           "204": {
@@ -3610,6 +3971,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Firewalls"
+        ],
         "summary": "Get firewall policy",
         "responses": {
           "200": {
@@ -3637,14 +4001,6 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "withCountOfAffectedServers",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
           }
         ],
         "description": ""
@@ -3663,6 +4019,9 @@
     },
     "/api/v1/users/{userId}/images": {
       "get": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Get all available user images",
         "responses": {
           "200": {
@@ -3717,6 +4076,9 @@
     },
     "/api/v1/users/{userId}/images/{key}": {
       "post": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Prepares an upload for an image",
         "responses": {
           "201": {
@@ -3770,6 +4132,9 @@
         "description": "If \"multipart=true\", returns \"uploadId\" that is used to fetch upload URLs for each part with\n \"GET /api/v1/users/{userId}/images/{key}/{uploadId}/parts/{partNumber}\". Use this URL to upload individual parts and\n get an \"ETag\" for each part. To finish, call \"PUT /api/v1/users/{userId}/images/{key}/{uploadId}\"\n with the list of all uploaded parts, containing \"ETag\" and \"partNumber\" for each part. Part numbers start at 1.\n\nIf \"multipart=false\", returns \"presignedUrl\" that is used to upload the image at once.\n"
       },
       "delete": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Delete an image",
         "responses": {
           "204": {
@@ -3789,6 +4154,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Get download informations for an image",
         "responses": {
           "200": {
@@ -3850,6 +4218,9 @@
     },
     "/api/v1/users/{userId}/images/{key}/{uploadId}": {
       "put": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Completes a multipart upload for an image",
         "responses": {
           "204": {
@@ -3917,6 +4288,9 @@
     },
     "/api/v1/users/{userId}/images/{key}/{uploadId}/parts/{partNumber}": {
       "get": {
+        "tags": [
+          "Server Images"
+        ],
         "summary": "Get a presigned upload URL for a single part",
         "responses": {
           "200": {
@@ -3984,6 +4358,9 @@
     },
     "/api/v1/users/{userId}/isos": {
       "get": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Get all available ISOs",
         "responses": {
           "200": {
@@ -4038,6 +4415,9 @@
     },
     "/api/v1/users/{userId}/isos/{key}": {
       "post": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Prepares an upload for an ISO",
         "responses": {
           "201": {
@@ -4091,6 +4471,9 @@
         "description": "If \"multipart=true\", returns \"uploadId\" that is used to fetch upload URLs for each part with\n \"GET /api/v1/users/{userId}/isos/{key}/{uploadId}/parts/{partNumber}\". Use this URL to upload individual parts and\n get an \"ETag\" for each part. To finish, call \"PUT /api/v1/users/{userId}/isos/{key}/{uploadId}\"\n with the list of all uploaded parts, containing \"ETag\" and \"partNumber\" for each part. Part numbers start at 1.\n\nIf \"multipart=false\", returns \"presignedUrl\" that is used to upload the ISO at once.\n"
       },
       "delete": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Delete an ISO",
         "responses": {
           "204": {
@@ -4110,6 +4493,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Get presigned URL for an ISO",
         "responses": {
           "200": {
@@ -4171,6 +4557,9 @@
     },
     "/api/v1/users/{userId}/isos/{key}/{uploadId}": {
       "put": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Completes a multipart upload for an ISO",
         "responses": {
           "204": {
@@ -4238,6 +4627,9 @@
     },
     "/api/v1/users/{userId}/isos/{key}/{uploadId}/parts/{partNumber}": {
       "get": {
+        "tags": [
+          "Server ISO"
+        ],
         "summary": "Get a presigned upload URL for a single part",
         "responses": {
           "200": {
@@ -4305,6 +4697,9 @@
     },
     "/api/v1/users/{userId}/logs": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Get user logs ",
         "responses": {
           "200": {
@@ -4366,6 +4761,9 @@
     },
     "/api/v1/users/{userId}/ssh-keys": {
       "post": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Create SSH key",
         "responses": {
           "201": {
@@ -4419,6 +4817,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Get SSH keys",
         "responses": {
           "200": {
@@ -4459,6 +4860,9 @@
     },
     "/api/v1/users/{userId}/ssh-keys/{id}": {
       "delete": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Delete SSH key",
         "responses": {
           "204": {
@@ -4522,6 +4926,9 @@
     },
     "/api/v1/users/{userId}/vlans": {
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get VLans of a user",
         "responses": {
           "200": {
@@ -4573,6 +4980,9 @@
     },
     "/api/v1/users/{userId}/vlans/{vlanId}": {
       "put": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Update a VLan",
         "responses": {
           "202": {
@@ -4632,6 +5042,9 @@
         "description": ""
       },
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get a VLan of a user",
         "responses": {
           "200": {
@@ -4692,6 +5105,9 @@
     },
     "/api/v1/vlans/{vlanId}": {
       "get": {
+        "tags": [
+          "Server Networking"
+        ],
         "summary": "Get a VLan",
         "responses": {
           "200": {
@@ -4871,6 +5287,14 @@
           }
         }
       },
+      "GuestAgentStatus": {
+        "type": "object",
+        "properties": {
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
       "Server": {
         "type": "object",
         "properties": {
@@ -4945,6 +5369,9 @@
           },
           "architecture": {
             "$ref": "#/components/schemas/Architecture"
+          },
+          "gpuDriverAvailable": {
+            "type": "boolean"
           }
         }
       },
@@ -5793,9 +6220,6 @@
           "secureMode": {
             "type": "boolean"
           },
-          "secureModeAppAccess": {
-            "type": "boolean"
-          },
           "apiIpLoginRestrictions": {
             "type": "string",
             "nullable": true
@@ -6052,10 +6476,6 @@
             "items": {
               "$ref": "#/components/schemas/FirewallRule"
             }
-          },
-          "countOfAffectedServers": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
@@ -6614,9 +7034,6 @@
           },
           "secureMode": {
             "type": "boolean"
-          },
-          "secureModeAppAccess": {
-            "type": "boolean"
           }
         }
       }
@@ -6628,5 +7045,136 @@
         "openIdConnectUrl": "/realms/scp/.well-known/openid-configuration"
       }
     }
+  },
+  "x-endpoints": {
+    "/scp-core": [
+      "/api/ping",
+      "/api/v1/admins",
+      "/api/v1/admins/{adminId}/firewall-policies",
+      "/api/v1/admins/{adminId}/firewall-policies/{id}",
+      "/api/v1/admins/{id}",
+      "/api/v1/bandwidthclasses",
+      "/api/v1/bandwidthclasses/{id}",
+      "/api/v1/clusters",
+      "/api/v1/clusters/mcp",
+      "/api/v1/clusters/{uuid}",
+      "/api/v1/clusters/{uuid}/load",
+      "/api/v1/db/mcp",
+      "/api/v1/defaultimages",
+      "/api/v1/defaultimages/{id}",
+      "/api/v1/defaultimages/{imageId}/flavours",
+      "/api/v1/defaultimages/{imageId}/flavours/{id}",
+      "/api/v1/failoverips/v4",
+      "/api/v1/failoverips/v6",
+      "/api/v1/ipv4",
+      "/api/v1/ipv4/{id}",
+      "/api/v1/ipv6",
+      "/api/v1/ipv6/{id}",
+      "/api/v1/isoimages",
+      "/api/v1/isoimages/{id}",
+      "/api/v1/maintenance",
+      "/api/v1/networks",
+      "/api/v1/networks/{id}",
+      "/api/v1/newsletters",
+      "/api/v1/newsletters/:dryrun",
+      "/api/v1/newsletters/templates",
+      "/api/v1/newsletters/templates/{id}",
+      "/api/v1/nodes",
+      "/api/v1/nodes/{id}",
+      "/api/v1/nodes/{id}/evacuations",
+      "/api/v1/nodes/{id}/evacuations/{evacuationId}",
+      "/api/v1/nodes/{id}/evacuations/{evacuationId}:cancel",
+      "/api/v1/nodes/{id}/servers/unreachable",
+      "/api/v1/nodes/{id}/servers/unreferenced",
+      "/api/v1/nodes/{id}/servers/unreferenced/{name}",
+      "/api/v1/nodes/{id}/stats",
+      "/api/v1/openapi",
+      "/api/v1/openapi/mcp",
+      "/api/v1/rdns/ipv4",
+      "/api/v1/rdns/ipv4/{ip}",
+      "/api/v1/rdns/ipv6",
+      "/api/v1/rdns/ipv6/{ip}",
+      "/api/v1/resellers",
+      "/api/v1/resellers/{id}",
+      "/api/v1/resellers/{id}/imageflavours",
+      "/api/v1/resellers/{resellerId}/email-templates",
+      "/api/v1/resellers/{resellerId}/servertemplates",
+      "/api/v1/resellers/{resellerId}/servertemplates/{id}",
+      "/api/v1/resellers/{resellerId}/settings",
+      "/api/v1/resellers/{resellerId}/settings/favicon",
+      "/api/v1/resellers/{resellerId}/settings/login-background",
+      "/api/v1/resellers/{resellerId}/settings/logo",
+      "/api/v1/resellers/{resellerId}/smtp",
+      "/api/v1/servers",
+      "/api/v1/servers/history",
+      "/api/v1/servers/{serverId}",
+      "/api/v1/servers/{serverId}/cloud-init",
+      "/api/v1/servers/{serverId}/disks",
+      "/api/v1/servers/{serverId}/disks/supported-drivers",
+      "/api/v1/servers/{serverId}/disks/{diskName}",
+      "/api/v1/servers/{serverId}/disks/{diskName}:format",
+      "/api/v1/servers/{serverId}/gpu-driver",
+      "/api/v1/servers/{serverId}/guest-agent",
+      "/api/v1/servers/{serverId}/guest-agent/status",
+      "/api/v1/servers/{serverId}/image",
+      "/api/v1/servers/{serverId}/imageflavours",
+      "/api/v1/servers/{serverId}/interfaces",
+      "/api/v1/servers/{serverId}/interfaces/{mac}",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/firewall",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/firewall:reapply",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/firewall:restore-copied-policies",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/ipv4/{id}",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/ipv6",
+      "/api/v1/servers/{serverId}/interfaces/{mac}/ipv6/{id}",
+      "/api/v1/servers/{serverId}/iso",
+      "/api/v1/servers/{serverId}/isoimages",
+      "/api/v1/servers/{serverId}/logs",
+      "/api/v1/servers/{serverId}/metrics/cpu",
+      "/api/v1/servers/{serverId}/metrics/disk",
+      "/api/v1/servers/{serverId}/metrics/network",
+      "/api/v1/servers/{serverId}/metrics/network/packet",
+      "/api/v1/servers/{serverId}/node-repair",
+      "/api/v1/servers/{serverId}/rescuesystem",
+      "/api/v1/servers/{serverId}/snapshots",
+      "/api/v1/servers/{serverId}/snapshots/{name}",
+      "/api/v1/servers/{serverId}/snapshots/{name}/export",
+      "/api/v1/servers/{serverId}/snapshots/{name}/revert",
+      "/api/v1/servers/{serverId}/snapshots:dryrun",
+      "/api/v1/servers/{serverId}/storageoptimization",
+      "/api/v1/servers/{serverId}/target-nodes",
+      "/api/v1/servers/{serverId}/user-image",
+      "/api/v1/servers/{serverId}:clone",
+      "/api/v1/sites",
+      "/api/v1/sites/{id}",
+      "/api/v1/static-routes/v4",
+      "/api/v1/static-routes/v6",
+      "/api/v1/tasks",
+      "/api/v1/tasks/{uuid}",
+      "/api/v1/tasks/{uuid}/details",
+      "/api/v1/tasks/{uuid}:cancel",
+      "/api/v1/users",
+      "/api/v1/users/password",
+      "/api/v1/users/{userId}",
+      "/api/v1/users/{userId}/failoverips/v4",
+      "/api/v1/users/{userId}/failoverips/v4/{id}",
+      "/api/v1/users/{userId}/failoverips/v6",
+      "/api/v1/users/{userId}/failoverips/v6/{id}",
+      "/api/v1/users/{userId}/firewall-policies",
+      "/api/v1/users/{userId}/firewall-policies/{id}",
+      "/api/v1/users/{userId}/images",
+      "/api/v1/users/{userId}/images/{key}",
+      "/api/v1/users/{userId}/images/{key}/{uploadId}",
+      "/api/v1/users/{userId}/images/{key}/{uploadId}/parts/{partNumber}",
+      "/api/v1/users/{userId}/isos",
+      "/api/v1/users/{userId}/isos/{key}",
+      "/api/v1/users/{userId}/isos/{key}/{uploadId}",
+      "/api/v1/users/{userId}/isos/{key}/{uploadId}/parts/{partNumber}",
+      "/api/v1/users/{userId}/logs",
+      "/api/v1/users/{userId}/ssh-keys",
+      "/api/v1/users/{userId}/ssh-keys/{id}",
+      "/api/v1/users/{userId}/vlans",
+      "/api/v1/users/{userId}/vlans/{vlanId}",
+      "/api/v1/vlans/{vlanId}"
+    ]
   }
 }

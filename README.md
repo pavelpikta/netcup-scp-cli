@@ -462,7 +462,7 @@ To point at another environment, you would need to change the code in `netcup_cl
 
 ## API compatibility
 
-- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0218.151350** in the bundled `openapi.json`).
+- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0519.150426** in the bundled `openapi.json`).
 - **Coverage:** Most endpoints from the spec are implemented (servers, rDNS, tasks, users, failover IPs, firewall policies, SSH keys, VLANs, images/ISOs, logs, maintenance). Multipart upload for user images/ISOs is not implemented in the CLI.
 - **Breaking changes:** If the API introduces breaking changes, the CLI may need updates. Check the [netcup SCP API forum](https://forum.netcup.de/netcup-anwendungen/scp-server-control-panel/scp-server-control-panel-rest-api/) and release notes.
 

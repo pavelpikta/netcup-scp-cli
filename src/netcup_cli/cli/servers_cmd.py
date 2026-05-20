@@ -3,6 +3,7 @@
 import click
 
 from ..api.servers import server_get, server_list, server_patch
+from ..api.servers_gpu import gpu_driver_get
 from ..exceptions import APIError, ConfigError
 from ..output import print_json
 from .servers_disks_cmd import disks_group
@@ -28,14 +29,45 @@ def servers_group():
 @servers_group.command("list", help="List servers (with optional filters).")
 @click.option("--limit", type=int, help="Max number of results.")
 @click.option("--offset", type=int, help="Offset for pagination.")
+@click.option(
+    "--firewall-policy-id",
+    type=int,
+    help="Filter by assigned firewall policy ID.",
+)
 @click.option("--ip", help="Filter by IP.")
 @click.option("--name", help="Filter by server name.")
 @click.option("-q", "query", help="Search in name, nickname, ipv4Addresses.")
 def list_servers(
-    limit: int | None, offset: int | None, ip: str | None, name: str | None, query: str | None
+    limit: int | None,
+    offset: int | None,
+    firewall_policy_id: int | None,
+    ip: str | None,
+    name: str | None,
+    query: str | None,
 ) -> None:
     try:
-        data = server_list(limit=limit, offset=offset, ip=ip, name=name, q=query)
+        data = server_list(
+            limit=limit,
+            offset=offset,
+            firewall_policy_id=firewall_policy_id,
+            ip=ip,
+            name=name,
+            q=query,
+        )
+    except (APIError, ConfigError) as e:
+        click.echo(click.style(str(e), fg="red"), err=True)
+        raise SystemExit(1) from e
+    print_json(data)
+
+
+@servers_group.command(
+    "gpu-driver",
+    help="Get presigned GPU driver download URL (if vGPU / driver available).",
+)
+@click.argument("server_id", type=int)
+def gpu_driver(server_id: int) -> None:
+    try:
+        data = gpu_driver_get(server_id)
     except (APIError, ConfigError) as e:
         click.echo(click.style(str(e), fg="red"), err=True)
         raise SystemExit(1) from e

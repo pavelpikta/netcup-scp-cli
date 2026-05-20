@@ -2,7 +2,7 @@
 
 import click
 
-from ..api.servers_guest import guest_agent_get
+from ..api.servers_guest import guest_agent_get, guest_agent_status_get
 from ..api.servers_image import image_setup, imageflavours_list, user_image_setup
 from ..api.servers_logs import server_logs_list
 from ..api.servers_storage import storage_optimization_start
@@ -38,6 +38,17 @@ def guest_agent_group():
 def get_cmd(server_id: int) -> None:
     try:
         data = guest_agent_get(server_id)
+    except (APIError, ConfigError) as e:
+        click.echo(click.style(str(e), fg="red"), err=True)
+        raise SystemExit(1) from e
+    print_json(data)
+
+
+@guest_agent_group.command("status", help="Get guest agent status.")
+@click.argument("server_id", type=int)
+def guest_agent_status_cmd(server_id: int) -> None:
+    try:
+        data = guest_agent_status_get(server_id)
     except (APIError, ConfigError) as e:
         click.echo(click.style(str(e), fg="red"), err=True)
         raise SystemExit(1) from e
