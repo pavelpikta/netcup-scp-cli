@@ -13,11 +13,12 @@ API_BASE_URL = f"{API_ROOT}/v1"
 CLIENT_ID = "scp"
 SCOPE = "offline_access openid"
 
+CONFIG_DIR_NAME = "netcup-scp-cli"
 
-# Token storage
+
 def _config_dir() -> Path:
     xdg = os.environ.get("XDG_CONFIG_HOME") or os.path.expanduser("~/.config")
-    return Path(xdg) / "netcup-cli"
+    return Path(xdg) / CONFIG_DIR_NAME
 
 
 def credentials_path() -> Path:

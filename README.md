@@ -60,8 +60,10 @@ All commands that need a **user context** (e.g. `users failoverips list`) use th
 ### From PyPI (when published)
 
 ```bash
-pip install netcup-cli
+pip install netcup-scp-cli
 ```
+
+The PyPI distribution is **`netcup-scp-cli`** (the names `netcup-cli` and `netcupctl` are already taken). The installed command is still **`netcup`**; the Python import package is **`netcup_scp_cli`**.
 
 ### From source (development or unreleased)
 
@@ -93,14 +95,14 @@ netcup --help
 ```bash
 cd netcup-cli
 pip install -r requirements.txt
-PYTHONPATH=src python -m netcup_cli --help
+PYTHONPATH=src python -m netcup_scp_cli --help
 ```
 
 ### Optional: use pipx (isolated environment)
 
 ```bash
-pipx install path/to/netcup-cli
-# or after cloning:
+pipx install netcup-scp-cli
+# or from a local clone:
 pipx install -e path/to/netcup-cli
 ```
 
@@ -114,7 +116,7 @@ pipx install -e path/to/netcup-cli
    netcup auth login
    ```
 
-   Complete the flow in the browser; the CLI stores a refresh token under `~/.config/netcup-cli/`.
+   Complete the flow in the browser; the CLI stores a refresh token under `~/.config/netcup-scp-cli/`.
 
 2. **Check API**:
 
@@ -163,7 +165,7 @@ For the full command set, see [Command reference](#command-reference).
 
 - **Method:** OAuth2 **device code** flow (no password in the CLI).
 - **Stored credential:** Only the **refresh token** is saved; access tokens are obtained on demand and not written to disk.
-- **Location:** `~/.config/netcup-cli/credentials` (or `$XDG_CONFIG_HOME/netcup-cli/credentials` if set). File format: `{"refresh_token": "…"}`.
+- **Location:** `~/.config/netcup-scp-cli/credentials` (or `$XDG_CONFIG_HOME/netcup-scp-cli/credentials` if set). File format: `{"refresh_token": "…"}`.
 - **Lifetime:** Refresh token remains valid as long as it is used at least once every 30 days (per SCP API).
 
 **Commands:**
@@ -404,7 +406,7 @@ All commands below support **`--user-id <id>`**; if omitted, the current user is
 
 ### Credentials
 
-- **Path:** `~/.config/netcup-cli/credentials` (Linux/macOS). On Windows, `%APPDATA%\netcup-cli\credentials` is not used by default; the CLI uses `$XDG_CONFIG_HOME` if set, otherwise `~/.config`.
+- **Path:** `~/.config/netcup-scp-cli/credentials` (Linux/macOS). On Windows, `%APPDATA%\netcup-scp-cli\credentials` is not used by default; the CLI uses `$XDG_CONFIG_HOME` if set, otherwise `~/.config`.
 - **Override directory:** Set `XDG_CONFIG_HOME` (e.g. `export XDG_CONFIG_HOME=$HOME/.config`).
 - **Format:** JSON with a single key: `{"refresh_token": "…"}`. Do not edit manually unless you know the token value.
 
@@ -416,7 +418,7 @@ The CLI uses these base URLs (not configurable via env or file):
 - **API root:** `https://www.servercontrolpanel.de/scp-core/api`
 - **API v1:** `https://www.servercontrolpanel.de/scp-core/api/v1`
 
-To point at another environment, you would need to change the code in `netcup_cli/config.py`.
+To point at another environment, you would need to change the code in `netcup_scp_cli/config.py`.
 
 ---
 
@@ -493,14 +495,14 @@ Use this with an MCP-capable client if you want explore-only access to the API s
 ## Project structure
 
 ```
-netcup-cli/
-├── pyproject.toml          # Package metadata, dependencies, entry point
+netcup-cli/                    # git repo (local clone)
+├── pyproject.toml          # Package metadata (PyPI name: netcup-scp-cli)
 ├── requirements.txt        # requests, click
 ├── README.md               # This file
 ├── openapi.json            # Snapshot of SCP OpenAPI spec
 ├── .github/workflows/ci.yml
 ├── tests/                  # OpenAPI coverage + unit tests
-└── src/netcup_cli/
+└── src/netcup_scp_cli/
     ├── __init__.py         # Version
     ├── config.py           # URLs, credential path
     ├── auth.py             # Device code, refresh, revoke, load/save credentials

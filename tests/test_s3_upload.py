@@ -6,11 +6,11 @@ from unittest.mock import patch
 import pytest
 import responses
 
-from netcup_cli.api import base as api_base
-from netcup_cli.api.s3_upload import put_to_presigned_url, upload_file
-from netcup_cli.api.user_images import user_image_upload
-from netcup_cli.config import API_BASE_URL
-from netcup_cli.exceptions import APIError
+from netcup_scp_cli.api import base as api_base
+from netcup_scp_cli.api.s3_upload import put_to_presigned_url, upload_file
+from netcup_scp_cli.api.user_images import user_image_upload
+from netcup_scp_cli.config import API_BASE_URL
+from netcup_scp_cli.exceptions import APIError
 
 
 @pytest.fixture(autouse=True)
@@ -119,7 +119,7 @@ def test_upload_file_multipart(tmp_path: Path) -> None:
 
 
 @responses.activate
-@patch("netcup_cli.client.get_access_token", return_value="tok")
+@patch("netcup_scp_cli.client.get_access_token", return_value="tok")
 def test_user_image_upload_multipart_end_to_end(_token, tmp_path: Path) -> None:
     f = tmp_path / "disk.qcow2"
     f.write_bytes(b"12345678")  # 8 bytes, part_size 3 → 3 parts
