@@ -13,6 +13,7 @@ def server_list(
     ip: str | None = None,
     name: str | None = None,
     q: str | None = None,
+    sort: list[str] | None = None,
 ) -> list[dict]:
     """GET /api/v1/servers - List servers with optional filters."""
     client = get_client()
@@ -29,6 +30,8 @@ def server_list(
         params["name"] = name
     if q:
         params["q"] = q
+    if sort:
+        params["sort"] = sort
     resp = client.get("/servers", params=params or None)
     return resp.json()
 

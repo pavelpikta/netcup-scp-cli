@@ -37,6 +37,11 @@ def servers_group():
 @click.option("--ip", help="Filter by IP.")
 @click.option("--name", help="Filter by server name.")
 @click.option("-q", "query", help="Search in name, nickname, ipv4Addresses.")
+@click.option(
+    "--sort",
+    multiple=True,
+    help="Sort by field (name, nickname). Prefix '-' for descending. Repeatable.",
+)
 def list_servers(
     limit: int | None,
     offset: int | None,
@@ -44,6 +49,7 @@ def list_servers(
     ip: str | None,
     name: str | None,
     query: str | None,
+    sort: tuple[str, ...],
 ) -> None:
     try:
         data = server_list(
@@ -53,6 +59,7 @@ def list_servers(
             ip=ip,
             name=name,
             q=query,
+            sort=list(sort) or None,
         )
     except (APIError, ConfigError) as e:
         click.echo(click.style(str(e), fg="red"), err=True)

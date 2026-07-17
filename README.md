@@ -8,7 +8,7 @@ Manage servers, rDNS, snapshots, rescue systems, firewall policies, SSH keys, VL
 | --- | --- |
 | **Python** | 3.9+ |
 | **License** | MIT |
-| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0519.150426 |
+| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0703.095128 |
 
 > **Why `netcup` and not `scp`?** The command is named `netcup` to avoid clashing with the standard Unix **scp** (secure copy) command.
 
@@ -207,7 +207,7 @@ For the full command set, see [Command reference](#command-reference).
 
 | Command | Arguments / options | Description |
 |--------|--------------------|-------------|
-| `servers list` | `[--limit N] [--offset N] [--ip IP] [--name NAME] [-q QUERY]` | List servers (optional filters). |
+| `servers list` | `[--limit N] [--offset N] [--ip IP] [--name NAME] [-q QUERY] [--sort FIELD]` | List servers (optional filters; `--sort` repeatable: `name`, `nickname`, prefix `-` for desc). |
 | `servers get <server_id>` | `[--no-live]` | Get one server; `--no-live` skips live info. |
 | `servers power <server_id> on\|off` | `[--option POWERCYCLE\|RESET\|POWEROFF]` | Power on/off or power cycle. |
 | `servers set-hostname <server_id> <hostname>` | | Set server hostname. |
@@ -462,7 +462,7 @@ To point at another environment, you would need to change the code in `netcup_cl
 
 ## API compatibility
 
-- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0519.150426** in the bundled `openapi.json`).
+- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0703.095128** in the bundled `openapi.json`).
 - **Coverage:** Most endpoints from the spec are implemented (servers, rDNS, tasks, users, failover IPs, firewall policies, SSH keys, VLANs, images/ISOs, logs, maintenance). Multipart upload for user images/ISOs is not implemented in the CLI.
 - **Breaking changes:** If the API introduces breaking changes, the CLI may need updates. Check the [netcup SCP API forum](https://forum.netcup.de/netcup-anwendungen/scp-server-control-panel/scp-server-control-panel-rest-api/) and release notes.
 
