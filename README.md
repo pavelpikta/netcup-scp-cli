@@ -368,6 +368,7 @@ All commands below support **`--user-id <id>`**; if omitted, the current user is
 | `list` | List user images. |
 | `delete <key>` | Delete image by key. |
 | `download-url <key>` | Get presigned download URL. |
+| `upload <key> <path>` | Upload local file (`--multipart` / `--no-multipart`, `--part-size`). |
 
 **User ISOs (S3):** `users isos`
 
@@ -376,6 +377,7 @@ All commands below support **`--user-id <id>`**; if omitted, the current user is
 | `list` | List user ISOs. |
 | `delete <key>` | Delete ISO by key. |
 | `download-url <key>` | Get presigned download URL. |
+| `upload <key> <path>` | Upload local file (`--multipart` / `--no-multipart`, `--part-size`). |
 
 **User logs:** `users logs list [--limit N] [--offset N]`
 
@@ -463,7 +465,7 @@ To point at another environment, you would need to change the code in `netcup_cl
 ## API compatibility
 
 - **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0703.095128** in the bundled `openapi.json`).
-- **Coverage:** Most endpoints from the spec are implemented (servers, rDNS, tasks, users, failover IPs, firewall policies, SSH keys, VLANs, images/ISOs, logs, maintenance). Multipart upload for user images/ISOs is not implemented in the CLI.
+- **Coverage:** Most endpoints from the spec are implemented (servers, rDNS, tasks, users, failover IPs, firewall policies, SSH keys, VLANs, images/ISOs including S3 upload, logs, maintenance). Intentionally skipped: `GET /openapi` (use bundled snapshot) and `POST /openapi/mcp` (explore-only; no CLI wrapper). Coverage is guarded by `tests/test_openapi_coverage.py`.
 - **Breaking changes:** If the API introduces breaking changes, the CLI may need updates. Check the [netcup SCP API forum](https://forum.netcup.de/netcup-anwendungen/scp-server-control-panel/scp-server-control-panel-rest-api/) and release notes.
 
 ### OpenAPI spec file
@@ -474,7 +476,7 @@ The file **`openapi.json`** in the project root is a snapshot of the spec fetche
 curl -s -X GET 'https://www.servercontrolpanel.de/scp-core/api/v1/openapi' -H 'accept: application/json' -o openapi.json
 ```
 
-You can refresh it to align with the latest API. The CLI does not read this file at runtime; it is for reference and code generation.
+You can refresh it to align with the latest API. The CLI does not read this file at runtime; it is for reference and for the OpenAPI coverage tests.
 
 ### SCP OpenAPI MCP endpoint (Miscellaneous)
 
@@ -496,6 +498,8 @@ netcup-cli/
 ├── requirements.txt        # requests, click
 ├── README.md               # This file
 ├── openapi.json            # Snapshot of SCP OpenAPI spec
+├── .github/workflows/ci.yml
+├── tests/                  # OpenAPI coverage + unit tests
 └── src/netcup_cli/
     ├── __init__.py         # Version
     ├── config.py           # URLs, credential path
@@ -505,6 +509,7 @@ netcup-cli/
     ├── output.py           # JSON formatting
     ├── api/                # API layer (one module per resource)
     │   ├── base.py
+    │   ├── s3_upload.py    # Shared S3 multipart / single-shot upload helper
     │   ├── maintenance.py
     │   ├── rdns.py
     │   ├── servers.py

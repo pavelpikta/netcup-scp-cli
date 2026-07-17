@@ -2,6 +2,7 @@
 
 import click
 
+from ..api.s3_upload import DEFAULT_PART_SIZE
 from ..api.user_failoverips import (
     failoverips_v4_list,
     failoverips_v4_route,
@@ -15,8 +16,18 @@ from ..api.user_firewall_policies import (
     firewall_policy_get,
     firewall_policy_update,
 )
-from ..api.user_images import user_image_delete, user_image_download_url, user_images_list
-from ..api.user_isos import user_iso_delete, user_iso_download_url, user_isos_list
+from ..api.user_images import (
+    user_image_delete,
+    user_image_download_url,
+    user_image_upload,
+    user_images_list,
+)
+from ..api.user_isos import (
+    user_iso_delete,
+    user_iso_download_url,
+    user_iso_upload,
+    user_isos_list,
+)
 from ..api.user_logs import user_logs_list
 from ..api.user_ssh_keys import ssh_key_create, ssh_key_delete, ssh_keys_list
 from ..api.user_vlans import vlan_get, vlan_update, vlans_list
@@ -335,6 +346,53 @@ def ui_download_url(user_id: int | None, key: str) -> None:
         print_json(url)
 
 
+@user_images_group.command("upload", help="Upload a local file as a user image.")
+@user_id_option
+@click.argument("key", type=str)
+@click.argument("path", type=click.Path(exists=True, dir_okay=False, path_type=str))
+@click.option(
+    "--part-size",
+    type=int,
+    default=DEFAULT_PART_SIZE,
+    show_default=True,
+    help="Multipart chunk size in bytes.",
+)
+@click.option(
+    "--multipart/--no-multipart",
+    default=None,
+    help="Force S3 multipart or single-shot; default auto (multipart if file > part-size).",
+)
+def ui_upload(
+    user_id: int | None,
+    key: str,
+    path: str,
+    part_size: int,
+    multipart: bool | None,
+) -> None:
+    uid = resolve_user_id(user_id)
+
+    def on_progress(done: int, total: int) -> None:
+        if total:
+            click.echo(f"\rUploaded {done}/{total} bytes", nl=False, err=True)
+        else:
+            click.echo("\rUploaded empty file", nl=False, err=True)
+
+    try:
+        user_image_upload(
+            uid,
+            key,
+            path,
+            part_size=part_size,
+            use_multipart=multipart,
+            on_progress=on_progress,
+        )
+    except (APIError, ConfigError, FileNotFoundError, ValueError, OSError) as e:
+        click.echo(click.style(str(e), fg="red"), err=True)
+        raise SystemExit(1) from e
+    click.echo("", err=True)
+    click.echo("OK")
+
+
 # ---- User ISOs ----
 @click.group("isos", help="User ISOs (S3).")
 def user_isos_group():
@@ -380,6 +438,53 @@ def uiso_download_url(user_id: int | None, key: str) -> None:
         click.echo(url)
     else:
         print_json(url)
+
+
+@user_isos_group.command("upload", help="Upload a local file as a user ISO.")
+@user_id_option
+@click.argument("key", type=str)
+@click.argument("path", type=click.Path(exists=True, dir_okay=False, path_type=str))
+@click.option(
+    "--part-size",
+    type=int,
+    default=DEFAULT_PART_SIZE,
+    show_default=True,
+    help="Multipart chunk size in bytes.",
+)
+@click.option(
+    "--multipart/--no-multipart",
+    default=None,
+    help="Force S3 multipart or single-shot; default auto (multipart if file > part-size).",
+)
+def uiso_upload(
+    user_id: int | None,
+    key: str,
+    path: str,
+    part_size: int,
+    multipart: bool | None,
+) -> None:
+    uid = resolve_user_id(user_id)
+
+    def on_progress(done: int, total: int) -> None:
+        if total:
+            click.echo(f"\rUploaded {done}/{total} bytes", nl=False, err=True)
+        else:
+            click.echo("\rUploaded empty file", nl=False, err=True)
+
+    try:
+        user_iso_upload(
+            uid,
+            key,
+            path,
+            part_size=part_size,
+            use_multipart=multipart,
+            on_progress=on_progress,
+        )
+    except (APIError, ConfigError, FileNotFoundError, ValueError, OSError) as e:
+        click.echo(click.style(str(e), fg="red"), err=True)
+        raise SystemExit(1) from e
+    click.echo("", err=True)
+    click.echo("OK")
 
 
 # ---- User logs ----

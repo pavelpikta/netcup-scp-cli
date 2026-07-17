@@ -4,6 +4,17 @@ All notable changes to netcup CLI are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-07-17
+
+### Added
+
+- `users images upload` and `users isos upload`: S3 single-shot and multipart upload via SCP prepare/sign/complete APIs (`--multipart` / `--no-multipart`, `--part-size`).
+- OpenAPI coverage inventory tests, S3 upload unit tests, and GitHub Actions CI (ruff + pytest on Python 3.9–3.12).
+
+### Changed
+
+- `APIClient` accepts JSON list bodies (needed for multipart complete).
+
 ## [1.2.0] - 2026-07-17
 
 ### Added
@@ -34,5 +45,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `maintenance ping` returning 406: request now sends `Accept: text/plain` for the ping endpoint.
 - Task cancel: use PUT instead of POST per OpenAPI spec.
 
+[1.3.0]: https://github.com/your-org/netcup-cli/releases/tag/v1.3.0
 [1.2.0]: https://github.com/your-org/netcup-cli/releases/tag/v1.2.0
 [1.0.0]: https://github.com/your-org/netcup-cli/releases/tag/v1.0.0

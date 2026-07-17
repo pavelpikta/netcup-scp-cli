@@ -30,7 +30,7 @@ class APIClient:
         path: str,
         *,
         params: dict[str, Any] | None = None,
-        json: dict | None = None,
+        json: dict | list | None = None,
         data: dict | None = None,
         content_type: str | None = None,
         accept: str | None = None,
@@ -58,7 +58,7 @@ class APIClient:
         path: str,
         *,
         params: dict[str, Any] | None = None,
-        json: dict | None = None,
+        json: dict | list | None = None,
         data: dict | None = None,
         content_type: str | None = None,
         accept: str | None = None,
@@ -92,7 +92,7 @@ class APIClient:
     def post(
         self,
         path: str,
-        json: dict | None = None,
+        json: dict | list | None = None,
         data: dict | None = None,
         content_type: str | None = None,
         params: dict[str, Any] | None = None,
@@ -101,13 +101,13 @@ class APIClient:
             "POST", path, json=json, data=data, content_type=content_type, params=params
         )
 
-    def put(self, path: str, json: dict | None = None) -> requests.Response:
+    def put(self, path: str, json: dict | list | None = None) -> requests.Response:
         return self.request("PUT", path, json=json)
 
     def patch(
         self,
         path: str,
-        json: dict | None = None,
+        json: dict | list | None = None,
         content_type: str = "application/merge-patch+json",
     ) -> requests.Response:
         return self.request("PATCH", path, json=json, content_type=content_type)
