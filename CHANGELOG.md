@@ -9,11 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - `users images upload` and `users isos upload`: S3 single-shot and multipart upload via SCP prepare/sign/complete APIs (`--multipart` / `--no-multipart`, `--part-size`).
-- OpenAPI coverage inventory tests, S3 upload unit tests, and GitHub Actions CI (ruff + pytest on Python 3.9–3.12).
+- OpenAPI coverage inventory tests, S3 upload unit tests, and GitHub Actions CI (ruff + pytest on Python 3.10–3.14).
 
 ### Changed
 
 - `APIClient` accepts JSON list bodies (needed for multipart complete).
+- Dropped support for Python 3.9 (EOL); minimum is now Python 3.10.
 
 ## [1.2.0] - 2026-07-17
 

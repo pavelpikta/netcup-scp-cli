@@ -1,7 +1,5 @@
 """Contract test: every OpenAPI operation is declared implemented or skipped."""
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
 

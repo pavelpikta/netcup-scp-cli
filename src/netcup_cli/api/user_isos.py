@@ -78,9 +78,7 @@ def user_iso_upload(
         sign_part=lambda upload_id, part_number: user_iso_sign_part(
             user_id, key, upload_id, part_number
         ),
-        complete=lambda upload_id, parts: user_iso_complete_upload(
-            user_id, key, upload_id, parts
-        ),
+        complete=lambda upload_id, parts: user_iso_complete_upload(user_id, key, upload_id, parts),
         part_size=part_size,
         use_multipart=use_multipart,
         on_progress=on_progress,

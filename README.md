@@ -6,7 +6,7 @@ Manage servers, rDNS, snapshots, rescue systems, firewall policies, SSH keys, VL
 
 | | |
 | --- | --- |
-| **Python** | 3.9+ |
+| **Python** | 3.10+ |
 | **License** | MIT |
 | **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0703.095128 |
 
@@ -49,7 +49,7 @@ All commands that need a **user context** (e.g. `users failoverips list`) use th
 
 ## Requirements
 
-- **Python 3.9** or newer
+- **Python 3.10** or newer
 - Network access to `https://www.servercontrolpanel.de`
 - A netcup SCP account (device-code login in the browser)
 

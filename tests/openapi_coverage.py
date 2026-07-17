@@ -4,8 +4,6 @@ Every operation in openapi.json must appear here as implemented or skipped.
 When the bundled spec gains new ops, this map must be updated deliberately.
 """
 
-from __future__ import annotations
-
 # Status values: "implemented" | "skipped"
 OPENAPI_COVERAGE: dict[str, str] = {
     "DELETE /api/v1/rdns/ipv4/{ip}": "implemented",

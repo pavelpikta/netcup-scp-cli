@@ -1,7 +1,5 @@
 """CLI smoke tests for users images/isos upload."""
 
-from __future__ import annotations
-
 from pathlib import Path
 from unittest.mock import patch
 
