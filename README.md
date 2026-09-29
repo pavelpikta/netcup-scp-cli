@@ -8,7 +8,7 @@ Manage servers, rDNS, snapshots, rescue systems, firewall policies, SSH keys, VL
 | --- | --- |
 | **Python** | 3.10+ |
 | **License** | MIT |
-| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0810.110900 |
+| **API** | [SCP REST API](https://www.servercontrolpanel.de) · OpenAPI 2026.0923.125530 |
 
 > **Why `netcup` and not `scp`?** The command is named `netcup` to avoid clashing with the standard Unix **scp** (secure copy) command.
 
@@ -475,7 +475,7 @@ To point at another environment, you would need to change the code in `netcup_sc
 
 ## API compatibility
 
-- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0810.110900** in the bundled `openapi.json`).
+- **Spec:** The CLI is built against the SCP REST API as described in the OpenAPI spec (version **2026.0923.125530** in the bundled `openapi.json`).
 - **Spec notes:** `GET /maintenance` is deprecated (remove by 31.12.2026). `User.secureMode` / `UserSave.secureMode` were removed. Failover IP route may return **429** (10 req / 5 min, 20 / 60 min).
 - **Coverage:** Most endpoints from the spec are implemented (servers, rDNS, tasks, users, failover IPs, firewall policies, SSH keys, VLANs, images/ISOs including S3 upload, logs, maintenance). Intentionally skipped: `GET /openapi` (use bundled snapshot) and `POST /openapi/mcp` (explore-only; no CLI wrapper). Coverage is guarded by `tests/test_openapi_coverage.py`.
 - **Breaking changes:** If the API introduces breaking changes, the CLI may need updates. Check the [netcup SCP API forum](https://forum.netcup.de/netcup-anwendungen/scp-server-control-panel/scp-server-control-panel-rest-api/) and release notes.

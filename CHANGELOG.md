@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Bundled `openapi.json` snapshot updated to **2026.0923.125530** (SCP release version bump only; no endpoint or schema changes vs **2026.0810.110900**).
+
 ## [1.0.1] - 2026-08-14
 
 Aligned with SCP OpenAPI **2026.0810.110900**.

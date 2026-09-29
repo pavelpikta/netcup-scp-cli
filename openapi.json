@@ -3,7 +3,7 @@
   "info": {
     "title": "SCP (Server Control Panel) REST API",
     "description": "The version number is updated with each SCP release, regardless of whether the API has changed. Breaking changes are handled by versioning individual endpoints in the request path.",
-    "version": "2026.0810.110900"
+    "version": "2026.0923.125530"
   },
   "externalDocs": {
     "description": "netcup Forum",
