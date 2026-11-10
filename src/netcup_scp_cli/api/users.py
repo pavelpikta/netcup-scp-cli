@@ -4,6 +4,7 @@ import requests
 
 from ..auth import get_access_token
 from ..config import BASE_URL
+from ..exceptions import AuthError
 from .base import get_client
 
 
@@ -35,4 +36,10 @@ def user_update(user_id: int, body: dict) -> dict:
 
 def get_current_user_id() -> int:
     """Return current user ID from userinfo (for commands that need userId)."""
-    return int(user_info()["id"])
+    info = user_info()
+    try:
+        return int(info["id"])
+    except (KeyError, TypeError, ValueError) as e:
+        raise AuthError(
+            f"User info response did not contain a usable user id: {info!r}"
+        ) from e
